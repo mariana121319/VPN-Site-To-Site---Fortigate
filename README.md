@@ -358,11 +358,26 @@ Incluí capturas de:
 <img width="725" height="580" alt="image" src="https://github.com/user-attachments/assets/4e1cead1-fb59-420f-aa5e-1340711b49d0" />
 
 * Interfaces configuradas
+<img width="999" height="780" alt="image" src="https://github.com/user-attachments/assets/9c267fda-bc16-45d7-9c39-14d917eb0d38" />
+
+<img width="727" height="553" alt="image" src="https://github.com/user-attachments/assets/e743c3b0-3a2b-4261-83db-d39e4a751a0b" />
+
 * Fase 1 y Fase 2
+<img width="1136" height="293" alt="image" src="https://github.com/user-attachments/assets/1bfa13a2-3d04-4ddc-aead-837f6c9ceec1" />
+
+<img width="635" height="204" alt="image" src="https://github.com/user-attachments/assets/9426322d-e2f1-46f2-a73b-1c7086bd5fcb" />
+
 * Políticas
+<img width="622" height="531" alt="image" src="https://github.com/user-attachments/assets/fb5a4dc9-72aa-4f6f-8004-0cf9f2ee0f03" />
+
 * Ping exitoso
+<img width="666" height="154" alt="image" src="https://github.com/user-attachments/assets/03be60b2-5442-482a-87b6-932a79e84e48" />
+
 * Traceroute
+<img width="912" height="126" alt="image" src="https://github.com/user-attachments/assets/a9f48def-f2f9-4fac-9fe1-5fedb6f262d0" />
+
 * Estado del túnel:
+<img width="1096" height="502" alt="image" src="https://github.com/user-attachments/assets/765f19e1-03b2-4024-9693-f3fa470e90b5" />
 
 ```bash
 diagnose vpn tunnel list
