@@ -1,5 +1,3 @@
-# VPN-Site-To-Site---Fortigate
-
 # 🔐 VPN Site-To-Site con FortiGate en GNS3
 
 ## 📌 Objetivo
@@ -15,8 +13,6 @@ Con esta configuración logré:
 ---
 
 ## 🧩 Topología
-
-La topología utilizada fue:
 
 ```
 PC1 --- FG1 --- ISP --- FG2 --- PC2
@@ -90,9 +86,9 @@ end
 
 ---
 
-### 🔹 FortiGate 1 (FG1)
+## 🖥️ FortiGate 1 (FG1)
 
-#### Interfaces
+### Interfaces
 
 ```bash
 config system interface
@@ -114,7 +110,7 @@ end
 
 ---
 
-#### Ruta por defecto
+### Ruta por defecto
 
 ```bash
 config router static
@@ -128,7 +124,22 @@ end
 
 ---
 
-#### VPN Fase 1
+### 🔹 Ruta hacia la VPN (IMPORTANTE)
+
+```bash
+config router static
+edit 2
+set dst 12.0.1.0/24
+set device "VPN-SITE"
+next
+end
+```
+
+📌 Esta ruta permite enviar el tráfico hacia la red remota a través del túnel VPN.
+
+---
+
+### VPN Fase 1
 
 ```bash
 config vpn ipsec phase1-interface
@@ -136,13 +147,14 @@ edit "VPN-SITE"
 set interface "port2"
 set remote-gw 100.0.0.6
 set psksecret vpn123
+set net-device enable
 next
 end
 ```
 
 ---
 
-#### VPN Fase 2
+### VPN Fase 2
 
 ```bash
 config vpn ipsec phase2-interface
@@ -156,7 +168,7 @@ end
 
 ---
 
-#### Políticas
+### Políticas
 
 ```bash
 config firewall policy
@@ -190,9 +202,9 @@ end
 
 ---
 
-### 🔹 FortiGate 2 (FG2)
+## 🖥️ FortiGate 2 (FG2)
 
-#### Interfaces
+### Interfaces
 
 ```bash
 config system interface
@@ -214,7 +226,7 @@ end
 
 ---
 
-#### Ruta por defecto
+### Ruta por defecto
 
 ```bash
 config router static
@@ -228,7 +240,20 @@ end
 
 ---
 
-#### VPN Fase 1
+### 🔹 Ruta hacia la VPN
+
+```bash
+config router static
+edit 2
+set dst 12.0.0.0/24
+set device "VPN-SITE"
+next
+end
+```
+
+---
+
+### VPN Fase 1
 
 ```bash
 config vpn ipsec phase1-interface
@@ -236,13 +261,14 @@ edit "VPN-SITE"
 set interface "port2"
 set remote-gw 100.0.0.2
 set psksecret vpn123
+set net-device enable
 next
 end
 ```
 
 ---
 
-#### VPN Fase 2
+### VPN Fase 2
 
 ```bash
 config vpn ipsec phase2-interface
@@ -256,7 +282,7 @@ end
 
 ---
 
-#### Políticas
+### Políticas
 
 ```bash
 config firewall policy
@@ -292,32 +318,30 @@ end
 
 ## 🧪 Pruebas
 
-### 🔹 Antes de la VPN
+### Antes de la VPN
 
 * Ping entre WANs: ✅
 * Ping entre LANs: ❌
 
 ---
 
-### 🔹 Después de la VPN
+### Después de la VPN
 
 ```bash
 ping 12.0.1.10
 ```
 
-Resultado:
-
-* Comunicación exitosa entre redes
+✔️ Comunicación exitosa
 
 ---
 
-### 🔹 Traceroute
+### Traceroute
 
 ```bash
 tracert 12.0.1.10
 ```
 
-Ruta observada:
+Ruta:
 
 ```
 PC1 → FG1 → VPN → FG2 → PC2
@@ -325,14 +349,17 @@ PC1 → FG1 → VPN → FG2 → PC2
 
 ---
 
-## 📸 Evidencia requerida
+## 📸 Evidencia
 
 Incluí capturas de:
 
-* Topología en GNS3
-* Configuración de interfaces
+
+* Topología en GNS3:
+<img width="725" height="580" alt="image" src="https://github.com/user-attachments/assets/4e1cead1-fb59-420f-aa5e-1340711b49d0" />
+
+* Interfaces configuradas
 * Fase 1 y Fase 2
-* Políticas de firewall
+* Políticas
 * Ping exitoso
 * Traceroute
 * Estado del túnel:
@@ -343,12 +370,24 @@ diagnose vpn tunnel list
 
 ---
 
+## ⚠️ Problemas y solución
+
+Durante la práctica, la VPN no establecía la Fase 2.
+
+Esto se solucionó:
+
+* Agregando rutas estáticas hacia la VPN
+* Habilitando `net-device enable`
+
+---
+
 ## ✅ Conclusión
 
-En esta práctica logré implementar una VPN Site-To-Site funcional utilizando FortiGate, permitiendo la comunicación segura entre dos redes remotas mediante un túnel IPsec.
+Logré implementar una VPN Site-To-Site funcional utilizando FortiGate, permitiendo la comunicación segura entre dos redes remotas.
 
 Aprendí la importancia de:
 
 * Configurar correctamente las fases de la VPN
-* Aplicar políticas en ambos sentidos
+* Crear políticas en ambos sentidos
+* Definir rutas hacia el túnel
 * Verificar el estado del túnel para asegurar la conectividad
